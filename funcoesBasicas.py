@@ -78,7 +78,7 @@ class Cores(Enum):
     FUNDO_BRANCO_CLARO = 107
 
 
-def textoCor(texto: str, cor_texto: Cores = None, cor_fundo=None) -> str:
+def textoCor(texto: str, cor_texto: Cores = None, cor_fundo: Cores = None) -> str:
     """
     Pinta o texto com cores ANSI.
 
