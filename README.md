@@ -12,7 +12,7 @@ Este repositório contém um pequeno conjunto de utilitários que eu uso em prat
   - Configura o sistema de logging do Python para gravar logs em um diretório `logs` localizado no mesmo diretório do script em execução. Chame passando `__file__` ou uma string qualquer para nomear o arquivo de log.
   - Gera um arquivo de log com timestamp e envia a saída também para stdout.
 
- - `textoCor(texto: str, cor: Cor = Cor.VERMELHO)`
+- `textoCor(texto: str, cor: Cor = Cor.VERMELHO)`
   - Pinta o texto usando a enum `Cor` definida em `funcoesBasicas.py`. Exemplos de membros: `Cor.VERDE`, `Cor.VERMELHO_CLARO`, `Cor.FUNDO_AZUL`.
   - Retorna uma string com códigos ANSI aplicados. Usar a enum facilita autocomplete e evita passar códigos numéricos "mágicos".
   - Observação: em alguns terminais Windows antigos pode ser necessário habilitar o suporte a ANSI.
