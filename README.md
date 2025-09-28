@@ -1,21 +1,22 @@
 # Funções Básicas para Python
 
-Este repositório contém um pequeno conjunto de utilitários que eu uso em praticamente todos os meus projetos Python. O arquivo principal é `funcoesBasicas.py` e reúne funções para configuração de logging, formatação de texto no terminal, limpeza da tela e pequenas pausas no fluxo do programa.
+Este repositório contém um pequeno conjunto de utilitários úteis para scripts Python. O arquivo principal é `funcoesBasicas.py`, que reúne funções para configuração de logging, formatação de texto no terminal (com suporte a cor de texto e cor de fundo), limpeza da tela e pausas no fluxo do programa.
 
 ## Arquivo
 
-- `funcoesBasicas.py` — implementa as funções mostradas abaixo.
+- `funcoesBasicas.py` — implementa as funções descritas abaixo.
 
 ## Funções incluídas
 
 - `logging_config(nomeArquivo)`
-  - Configura o sistema de logging do Python para gravar logs em um diretório `logs` localizado no mesmo diretório do script em execução. Chame passando `__file__` ou uma string qualquer para nomear o arquivo de log.
-  - Gera um arquivo de log com timestamp e envia a saída também para stdout.
+  - Configura o logging do Python para gravar arquivos em um diretório `logs` ao lado do script em execução. Passe `__file__` (ou outra string) para nomear o arquivo de log.
+  - Gera um arquivo com timestamp e envia a saída também para stdout (FileHandler UTF-8 + StreamHandler).
 
-- `textoCor(texto: str, cor: Cor = Cor.VERMELHO)`
-  - Pinta o texto usando a enum `Cor` definida em `funcoesBasicas.py`. Exemplos de membros: `Cor.VERDE`, `Cor.VERMELHO_CLARO`, `Cor.FUNDO_AZUL`.
-  - Retorna uma string com códigos ANSI aplicados. Usar a enum facilita autocomplete e evita passar códigos numéricos "mágicos".
-  - Observação: em alguns terminais Windows antigos pode ser necessário habilitar o suporte a ANSI.
+- `textoCor(texto: str, cor_texto: Cores = None, cor_fundo: Cores = None)`
+  - Formata uma string aplicando códigos ANSI para cor do texto e opcionalmente cor de fundo.
+  - `Cores` é uma enum definida em `funcoesBasicas.py` (ex.: `Cores.VERDE`, `Cores.VERMELHO_CLARO`, `Cores.FUNDO_AZUL`).
+  - Se nenhum parâmetro de cor for passado, a função retorna o texto sem modificação.
+  - Observação: terminais modernos (Windows 10+/PowerShell/Windows Terminal, Linux, macOS) suportam ANSI nativamente; em Windows antigos pode ser necessário habilitar VT100.
 
 - `limpar()`
   - Limpa o terminal usando `cls` no Windows e `clear` em outros sistemas.
@@ -28,23 +29,22 @@ Este repositório contém um pequeno conjunto de utilitários que eu uso em prat
 Exemplo mínimo em um script `meu_script.py`:
 
 ```python
-from funcoesBasicas import logging_config, textoCor, limpar, pausa, Cor
+from funcoesBasicas import logging_config, textoCor, limpar, pausa, Cores
 
 if __name__ == '__main__':
-    logging_config(__file__)  # cria logs/Meuscript_DD-MM-YYYY_HHh-MMm-SSs.log
-    # Exemplo usando enum Cor
-    print(textoCor('Iniciando processo...', Cor.VERDE))
-    # Exemplo com cor de fundo
-    print(textoCor('Aviso: operação lenta', Cor.FUNDO_AMARELO))
+    logging_config(__file__)
+    print(textoCor('Iniciando processo...', Cores.VERDE))
+    # Texto em vermelho claro sobre fundo amarelo
+    print(textoCor('Aviso: operação lenta', Cores.VERMELHO_CLARO, Cores.FUNDO_AMARELO))
     pausa(1)
     limpar()
     print('Pronto')
 ```
 
-Observações:
+## Observações
 
 - O `logging_config` cria automaticamente a pasta `logs` ao lado do script em execução. Os logs são gravados em UTF-8.
-- A função `textoCor` usa sequências ANSI. Terminais modernos (Windows 10+, PowerShell/Windows Terminal, Linux, macOS) suportam essas sequências por padrão. Em versões antigas do Windows pode ser necessário habilitar `VT100` ou usar um helper para cores.
+- A função `textoCor` usa sequências ANSI. Terminais modernos suportam essas sequências por padrão; em versões antigas do Windows pode ser necessário habilitar `VT100` ou usar um helper para cores.
 
 ## Compatibilidade
 

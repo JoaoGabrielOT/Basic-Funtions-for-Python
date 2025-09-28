@@ -43,7 +43,7 @@ def logging_config(nomeArquivo):
     )
 
 
-class Cor(Enum):
+class Cores(Enum):
     PRETO = 30
     VERMELHO = 31
     VERDE = 32
@@ -77,18 +77,30 @@ class Cor(Enum):
     FUNDO_CIANO_CLARO = 106
     FUNDO_BRANCO_CLARO = 107
 
-def textoCor(texto: str, cor: Cor = Cor.VERMELHO) -> str:
+
+def textoCor(texto: str, cor_texto: Cores = None, cor_fundo=None) -> str:
     """
     Pinta o texto com cores ANSI.
 
     Parâmetros:
       texto (str): o texto a ser colorido.
-      cor (Cor): membro da enum Cor. Autocomplete sugere as opções.
+      cor_texto (Cores, opcional): cor do texto (enum Cores).
+      cor_fundo (Cores, opcional): cor de fundo (enum Cores).
 
     Retorna:
-      str com código ANSI aplicado.
+      str: texto com códigos ANSI aplicados.
     """
-    return f"\033[{cor.value}m{texto}\033[0m"
+    codigos = []
+    if cor_texto is not None:
+        codigos.append(str(cor_texto.value))
+
+    if cor_fundo is not None:
+        codigos.append(str(cor_fundo.value))
+        
+    if codigos:
+        return f"\033[{';'.join(codigos)}m{texto}\033[0m"
+    else:
+        return texto
 
 
 # funcao para limpar o terminal
