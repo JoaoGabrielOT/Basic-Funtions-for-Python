@@ -133,3 +133,4 @@ def pausa(time: float = 0.5):
         None
     """
     sleep(time)
+    
