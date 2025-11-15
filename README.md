@@ -1,34 +1,24 @@
-# Funções Básicas para Python
+# funcoesBasicas
 
-Este repositório contém um pequeno conjunto de utilitários úteis para scripts Python. O arquivo principal é `funcoesBasicas.py`, que reúne funções para configuração de logging, formatação de texto no terminal (com suporte a cor de texto e cor de fundo), limpeza da tela e pausas no fluxo do programa.
+Utilitários portáteis para scripts Python: logging prático, cores ANSI, limpeza de terminal e pausa, todos prontos para uso no terminal moderno.
 
-## Arquivo
+***
 
-- `funcoesBasicas.py` — implementa as funções descritas abaixo.
+## Instalação
 
-## Funções incluídas
+Instale diretamente do PyPI:
 
-- `logging_config(nomeArquivo)`
-  - Configura o logging do Python para gravar arquivos em um diretório `logs` ao lado do script em execução. Passe `__file__` (ou outra string) para nomear o arquivo de log.
-  - Gera um arquivo com timestamp e envia a saída também para stdout (FileHandler UTF-8 + StreamHandler).
+```
+pip install funcoesBasicas
+```
 
-- `textoCor(texto: str, cor_texto: Cores = None, cor_fundo: Cores = None)`
-  - Formata uma string aplicando códigos ANSI para cor do texto e opcionalmente cor de fundo.
-  - `Cores` é uma enum definida em `funcoesBasicas.py` (ex.: `Cores.VERDE`, `Cores.VERMELHO_CLARO`, `Cores.FUNDO_AZUL`).
-  - Se nenhum parâmetro de cor for passado, a função retorna o texto sem modificação.
-  - Observação: terminais modernos (Windows 10+/PowerShell/Windows Terminal, Linux, macOS) suportam ANSI nativamente; em Windows antigos pode ser necessário habilitar VT100.
+***
 
-- `limpar()`
-  - Limpa o terminal usando `cls` no Windows e `clear` em outros sistemas.
+## Como usar
 
-- `pausa(time: float = 0.5)`
-  - Pausa a execução por `time` segundos (usa `time.sleep`).
+Basta importar as funções e a enumeração de cores no seu script:
 
-## Exemplos de uso
-
-Exemplo mínimo em um script `meu_script.py`:
-
-```python
+```
 from funcoesBasicas import logging_config, textoCor, limpar, pausa, Cores
 
 if __name__ == '__main__':
@@ -41,15 +31,33 @@ if __name__ == '__main__':
     print('Pronto')
 ```
 
-## Observações
+***
 
-- O `logging_config` cria automaticamente a pasta `logs` ao lado do script em execução. Os logs são gravados em UTF-8.
-- A função `textoCor` usa sequências ANSI. Terminais modernos suportam essas sequências por padrão; em versões antigas do Windows pode ser necessário habilitar `VT100` ou usar um helper para cores.
+## Funções disponíveis
+
+- **`logging_config(nomeArquivo)`**:  Configura logging com log file e saída para stdout. Aceita como parâmetro `__file__` ou outro nome.
+- **`textoCor(texto: str, cor_texto: Cores = None, cor_fundo: Cores = None)`**:  Retorna o texto com cor ANSI no terminal. Escolha text color e opcionalmente cor de fundo pelo enum `Cores`.
+- **`limpar()`**:  Limpa o terminal (funciona em Windows e outros sistemas).
+- **`pausa(time: float = 0.5)`**: Pausa o programa por um tempo, padrão 0.5 segundos.
+- **Enum `Cores`**: Contém todas as cores disponíveis para texto e fundo, por exemplo: `Cores.VERDE`, `Cores.FUNDO_AZUL_CLARO`, `Cores.AMARELO_CLARO`.
+
+***
+
+## Detalhes técnicos
+
+- `logging_config` cria um diretório `logs` automaticamente junto do script.
+- As cores funcionam em terminais modernos (Windows 10+, Linux, macOS). Em versões mais antigas do Windows pode ser necessário habilitar VT100.
+- Não há dependências externas.
+
+***
 
 ## Compatibilidade
 
-As funções foram escritas para serem simples e portáveis. São adequadas para scripts utilitários e projetos pequenos.
+Este pacote foi escrito para scripts e utilitários Python portáteis. 
+Funciona em Windows, Linux, macOS e notebooks (Jupyter: cores ANSI podem não aparecer).
+
+***
 
 ## Licença
 
-Sinta-se à vontade para usar ou adaptar estas funções em seus projetos pessoais e profissionais.
+MIT — use livremente em projetos pessoais ou comerciais!
